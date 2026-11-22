@@ -1,1 +1,17 @@
-{"name":"ragnarok-quiz-multiplayer","version":"1.0.0","private":true,"scripts":{"start":"node server.js"},"dependencies":{"express":"^4.21.2","socket.io":"^4.8.1"},"engines":{"node":">=20"}}
+{
+  "name": "ragnarok-quiz-multiplayer",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "import:rms": "node import-rms.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1",
+    "cheerio": "1.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,29 +1,9 @@
-# Ragnarok Quiz Arena — Multiplayer Render Blueprint
+# Ragnarok Quiz Arena — RateMyServer importer edition
 
-## Deploy
-1. Upload **all the contents of this folder** to the root of a GitHub repository (including `render.yaml`, `server.js`, `data.js`, `package.json`, and `public/index.html`).
-2. In Render choose **New → Blueprint**, connect your GitHub repository, and approve the service.
-3. Render uses `render.yaml` to create a Node Web Service. Open the generated `.onrender.com` URL.
-4. Create a room, share the room code/link, and start the game.
+Upload all project files to GitHub repository root, then Render redeploys.
 
-## Features
-- One synchronized question for everyone; server-controlled timer 5–60 seconds (default 10).
-- Host chooses question count, typing/multiple choice, Monsters/Items, region/type, Renewal/Pre-Renewal.
-- Items restricted to Pre-Renewal. 70% spelling accuracy + 30% speed, with no speed credit for a totally wrong answer.
-- Random monster name/avatar, shared live scoreboard, host-controlled next question.
+**Important:** This package does NOT contain the complete RateMyServer database. It includes an experimental importer (`npm run import:rms`). It tries to retrieve RateMyServer A–Z pages and only saves `rms-data.json` if at least 100 monsters and 100 items parse. RateMyServer may block automated requests or change its HTML. The current app falls back to the existing starter dataset unless `rms-data.json` is generated and included in deployment.
 
-## Important limits
-- Rooms live in process memory: restarting/sleeping the server deletes rooms. Use one server instance.
-- This is a curated starter dataset, not the full RateMyServer database. Sprite URLs currently use Divine Pride; verify image licenses and accessibility before public distribution.
-- Players disconnected during a match cannot rejoin until the lobby.
-- Render free plan may sleep when idle.
+To try importing on a machine with network access: `npm install && npm run import:rms`. If successful, commit `rms-data.json` to GitHub and redeploy. Sprite URLs still use Divine Pride and are not validated against RateMyServer. Renewal import is experimental and not yet separated in quiz selection.
 
-## Local test
-`npm install && npm start`, then open http://localhost:3000. Health check: `/health`.
-
-
-## Auto-next and answer reveal
-All players see every submitted answer (or '(no answer)'), accuracy, response time, and earned points after each question. The next question starts automatically after a host-configurable 3–15 second reveal window (default 5). The host can skip the wait. The server controls the timers.
-
-## Avatar-only privacy update
-Player monster names are hidden in the lobby, leaderboard, and round answers. Each player is identified by their monster sprite; their submitted answer is still shown after each round.
+Existing multiplayer, auto next, answer reveal, avatar-only player identity, and shuffle remain unchanged.
