@@ -5,7 +5,7 @@ const base='https://raw.githubusercontent.com/rathena/rathena/master/db/';
 async function load(rel){
   const response=await fetch(base+rel,{signal:AbortSignal.timeout(45000)});
   if(!response.ok)throw Error(`${rel}: HTTP ${response.status}`);
-  const parsed=YAML.parse(await response.text());
+  const parsed=YAML.parse(await response.text(), { uniqueKeys: false });
   if(!Array.isArray(parsed?.Body))throw Error(`${rel}: missing Body`);
   return parsed.Body;
 }

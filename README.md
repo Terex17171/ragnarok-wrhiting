@@ -7,3 +7,6 @@ Sources: https://github.com/rathena/rathena/tree/master/db/pre-re and https://gi
 After deploy, open `/health` to inspect the actual catalog counts and `dataSource`. The importer has not been run in this environment because outbound network access is unavailable. If Render's upstream URLs or file layout change, the build will fail visibly; inspect Render build logs.
 
 Existing game features: multiplayer synchronized questions, auto-next, answer reveal, avatar-only player identification, randomized questions without duplicates within a match.
+
+## YAML duplicate-key fix
+The importer tolerates repeated YAML mapping keys using `uniqueKeys: false` (last value wins). Other parse errors and incomplete catalogs still fail the build.
