@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "import:rms": "node import-rms.js"
+    "import:rathena": "node import-rathena.js"
   },
   "dependencies": {
     "express": "^4.21.2",
     "socket.io": "^4.8.1",
-    "cheerio": "1.0.0"
+    "yaml": "^2.8.1"
   },
   "engines": {
     "node": ">=20"

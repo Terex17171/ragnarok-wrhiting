@@ -3,7 +3,7 @@ services:
     name: ragnarok-quiz-arena
     runtime: node
     plan: free
-    buildCommand: npm install
+    buildCommand: npm install && npm run import:rathena
     startCommand: npm start
     healthCheckPath: /health
     envVars:
