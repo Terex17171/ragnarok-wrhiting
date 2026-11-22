@@ -20,3 +20,10 @@
 
 ## Local test
 `npm install && npm start`, then open http://localhost:3000. Health check: `/health`.
+
+
+## Auto-next and answer reveal
+All players see every submitted answer (or '(no answer)'), accuracy, response time, and earned points after each question. The next question starts automatically after a host-configurable 3–15 second reveal window (default 5). The host can skip the wait. The server controls the timers.
+
+## Avatar-only privacy update
+Player monster names are hidden in the lobby, leaderboard, and round answers. Each player is identified by their monster sprite; their submitted answer is still shown after each round.
