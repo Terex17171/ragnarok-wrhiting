@@ -1,10 +1,13 @@
 const express=require('express');
 const http=require('http');
+const path=require('path');
+const fs=require('fs');
 const {Server}=require('socket.io');
 const {monsters,items}=require('./data');
 const app=express(),server=http.createServer(app),io=new Server(server);
 app.get('/health',(req,res)=>res.json({ok:true,rooms:rooms.size}));
-app.use(express.static('public'));
+const publicDir=path.join(__dirname,'public');
+app.use(express.static(publicDir));
 const rooms=new Map();
 const shuffle=a=>[...a].sort(()=>Math.random()-.5);
 const clean=(s,max=30)=>String(s||'').trim().slice(0,max);
@@ -28,5 +31,10 @@ io.on('connection',socket=>{
  socket.on('restart',()=>{const r=rooms.get(socket.data.code);if(!r||r.host!==socket.id||r.phase!=='finished')return;r.phase='lobby';r.index=-1;r.questions=[];for(const p of r.players.values()){p.score=0;p.answered=false}emitRoom(r)});
  socket.on('disconnect',()=>remove(socket));
 });
-app.get('/',(req,res)=>res.sendFile(require('path').join(__dirname,'public','index.html')));
+app.get('/',(req,res)=>{
+ const candidates=[path.join(publicDir,'index.html'),path.join(__dirname,'index.html')];
+ const found=candidates.find(file=>fs.existsSync(file));
+ if(!found)return res.status(503).type('text').send('Game UI missing: upload public/index.html to your GitHub repository.');
+ res.sendFile(found);
+});
 const port=process.env.PORT||3000;server.listen(port,'0.0.0.0',()=>console.log('Ragnarok Multiplayer listening on '+port));
